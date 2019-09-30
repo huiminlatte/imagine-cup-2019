@@ -36,8 +36,13 @@ app.get('/', (req, res) => {
 // 2 - Sample GET request 
 app.get("/api/getsample", function (req, res) {
     var a = req.query.a;
-    var b = req.query.b;
-    res.send(a + b);
+    var b = req.query.b; // everything is captured as string type
+    a = parseInt(a); // change type from string --> int
+    b = parseInt(b);
+    var ans = a + b; // without parseInt(), we will get ans=12 not ans=3 when a=1, b=2
+    console.log(ans);
+    res.send({ answer: ans }); // respons in the form of json 
+    // res.json({ answer: ans });
 });
 
 // -> Multer Upload Storage
