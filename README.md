@@ -1,6 +1,5 @@
 # imagine-cup-2019
 
-[TOC]
 
 #### Getting Started
 To get the Node server running locally:
