@@ -20,6 +20,12 @@ To get the Node server running locally:
 #### Using POSTMAN to Obtain JSON Output
 1. Install Postman via https://www.getpostman.com/downloads/. This will be used to test the API with the following links:
 --  Creating a new user:
+In JSON format - 
+{ "username":          ,
+  "name":              ,
+  "usertype":          ,
+  "email_address":     ,
+  "password":          }
  - For new patient: (POST) http://localhost:3000/api/CreateUser/Patient 
  - For new physiotherapist: (POST) http://localhost:3000/api/CreateUser/Physiotherapist 
  - For new caretaker: (POST) http://localhost:3000/api/CreateUser/Caretaker
@@ -34,12 +40,26 @@ To get the Node server running locally:
 3. Functionalities for Physiotherapist:
  - Allows physiotherapist to view details of a specific patient: (POST) http://localhost:3000/api/Physiotherapist/ViewPatientsDetails 
  - Enables them to add patient into their list: (POST) http://localhost:3000/api/Physiotherapist/addpatient 
+ BODY: { "patient_username":           ,
+         "physiotherapist_username":   ,
+         "Startdate":                  ,
+         "LastVisitDate":              ,
+         "STATUS":                     }
  - Enables them to see all patients on their list: (POST) http://localhost:3000/api/Physiotherapist/viewPatients
-  - Enables them to see all details of the patients on their list: (POST) http://localhost:3000/api/Physiotherapist/viewAllMyPatientsDetails
+ - Enables them to see all details of the patients on their list: (POST) http://localhost:3000/api/Physiotherapist/viewAllMyPatientsDetails
  - Allows physiotherapist to update patient's exercise: (POST) http://localhost:3000//api/Physiotherapist/UpdateExercise 
  
 4. Functionalities for Caretaker:
  - Add patient into caretaker's list : (POST) http://localhost:3000/api/Caretaker/addpatient
+ BODY: { "patient_username":           ,
+         "caretaker_username":         }
  - Lets caretakers view their patient's details: (POST) http://localhost:3000/api/Caretaker/viewPatient
  - Allows caretakers to see their patients' exercise progress: (POST) http://localhost:3000/api/Caretaker/viewExercise
  - Enables them to see details on specific patient: (POST) http://localhost:3000/api/Caretaker/ViewPatientsDetails
+ 
+ 
+ __________________
+ CHECK PASSWORD
+ http://localhost:3000/api/CheckPassword  (link)
+ (JSON body)  { "username":      ,
+                "password":      }
