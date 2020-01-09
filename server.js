@@ -49,7 +49,12 @@ app.post('/api/CreateUser/Patient', function (req, res) {
     if (!user) {
         return res.status(400).send({ error:true, message: 'Please provide user' });
     }
-
+	
+    let sql_create = 'CREATE TABLE IF NOT EXISTS users (username VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, usertype VARCHAR(255) NOT NULL, email_address VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, PRIMARY KEY (username))';
+    dbConn.query( sql_create, user, function (error, results, fields) {
+        if (error) throw error;
+        })
+	
     dbConn.query('INSERT INTO users SET ? ', user, function (error, results, fields) {
         if (error) throw error;
         return res.send({ error: false, data: results, message: 'New user has been created successfully.' });
@@ -62,11 +67,16 @@ app.post('/api/CreateUser/Physiotherapist', function (req, res) {
 
     let user = req.body
     console.log(user);
-
+	
     if (!user) {
         return res.status(400).send({ error:true, message: 'Please provide user' });
     }
 
+    let sql_create = 'CREATE TABLE IF NOT EXISTS users (username VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, usertype VARCHAR(255) NOT NULL, email_address VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, PRIMARY KEY (username))';
+    dbConn.query( sql_create, user, function (error, results, fields) {
+        if (error) throw error;
+        })
+	
     dbConn.query('INSERT INTO users SET ? ', user, function (error, results, fields) {
         if (error) throw error;
         return res.send({ error: false, data: results, message: 'New user has been created successfully.' });
@@ -83,6 +93,11 @@ app.post('/api/CreateUser/Caretaker', function (req, res) {
         return res.status(400).send({ error:true, message: 'Please provide user' });
     }
 
+    let sql_create = 'CREATE TABLE IF NOT EXISTS users (username VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, usertype VARCHAR(255) NOT NULL, email_address VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, PRIMARY KEY (username))';
+    dbConn.query( sql_create, user, function (error, results, fields) {
+        if (error) throw error;
+        })
+	
     dbConn.query('INSERT INTO users SET ? ', user, function (error, results, fields) {
         if (error) throw error;
         return res.send({ error: false, data: results, message: 'New user has been created successfully.' });
@@ -98,7 +113,11 @@ app.post('/api/CreateUser/Patient/details', function (req, res) {
     if (!user) {
         return res.status(400).send({ error:true, message: 'Please provide details' });
     }
-
+	
+    let sql_create = 'CREATE TABLE IF NOT EXISTS patientdetails (patient_username VARCHAR(255) NOT NULL, ExerciseID VARCHAR(255), ExerciseDate VARCHAR(255), TotalExerciseCount INT(4), TotalExerciseCompleted INT(4), ActiveExercise TINYINT(1), WeeklySchedule VARCHAR(255), PRIMARY KEY (patient_username))';
+    dbConn.query( sql_create, user, function (error, results, fields) {
+        if (error) throw error;
+        })
     dbConn.query('INSERT INTO patientdetails SET ? ', user, function (error, results, fields) {
         if (error) throw error;
         return res.send({ error: false, data: results, message: 'Details have been added successfully.' });
