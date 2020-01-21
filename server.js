@@ -104,6 +104,36 @@ app.post('/api/CreateUser/Caretaker', function (req, res) {
     });
 });
 
+//Retrieve database of physiotherapist
+app.post('/api/Physiotherapist/database', function (req,res) {
+    
+    dbConn.query("SELECT * FROM users WHERE usertype= 'Physiotherapist'", function(error, results, fields) {
+        if(error) throw error;
+        return res.send({ error: false, data: results[0], message: 'Registered Physiotherapists.'});
+    });
+
+});
+
+//Add patient profile for new user
+app.post('/api/CreateUser/Patient/profile', function (req, res) {
+
+    let user = req.body
+    console.log(user);
+
+    if (!user) {
+        return res.status(400).send({ error:true, message: 'Please provide details' });
+    }
+	
+    let sql_create = 'CREATE TABLE IF NOT EXISTS patientdetails (patient_username VARCHAR(255) NOT NULL, Height VARCHAR(255), BMI VARCHAR(255), RehabCentre VARCHAR(255), MedicalCondition VARCHAR(255), PRIMARY KEY (patient_username))';
+    dbConn.query( sql_create, user, function (error, results, fields) {
+        if (error) throw error;
+        })
+    dbConn.query('INSERT INTO patientdetails SET ? ', user, function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: 'Details have been added successfully.' });
+    });
+});
+
 //Add patient details for new user
 app.post('/api/CreateUser/Patient/details', function (req, res) {
 
