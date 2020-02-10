@@ -637,3 +637,44 @@ app.post("/api/Caretaker/viewExercise", function(req, res) {
     });
   });
 });
+
+//enables users to post a new blog post
+app.post('/api/Blog/newPost', function (req, res) {
+    let blogging_date = req.body.blogging_date
+    let author = req.body.author
+    let post_content = req.body.post_content
+    let post = req.body
+    console.log(post);
+    if (!blogging_date) {
+        return res.status(400).send({ error: true, message: 'Please insert date' });
+       }
+    if (!author) {
+        return res.status(400).send({ error: true, message: 'Please insert author' });
+       }
+    if (!post_content) {
+        return res.status(400).send({ error: true, message: 'Post is empty' });
+       }
+
+    let sql_blogpost = 'CREATE TABLE IF NOT EXISTS BlogPosts (blog_id INT(4) UNIQUE NOT NULL AUTO_INCREMENT, blogging_date VARCHAR(255) NOT NULL, author VARCHAR(255) NOT NULL, post_content VARCHAR(255), PRIMARY KEY (blog_id))';
+       dbConn.query(sql_blogpost, post, function (error, results, fields) {
+            if (error) throw error;
+               })
+       dbConn.query('INSERT INTO BlogPosts SET ?', post, function (error, results, fields) {
+           if (error) throw error;
+           return res.send({ error: false, data: results, message: 'Posted successfully.' });
+               })
+})
+
+//retrieve blog post based on date
+app.post('/api/Blog/getPost', function (req, res) {
+    let blog_date = req.body.blog_date
+    console.log(blog_date);
+    if (!blog_date) {
+        return res.status(400).send({ error: true, message: 'Please insert date'});
+    }
+
+    dbConn.query('SELECT * FROM BlogPosts WHERE blogging_date=?', blog_date, function(error, results, fields) {
+        if(error) throw error;
+        return res.send({ error: false, data: results[0], message: 'Posts made on date'});
+    });
+})
