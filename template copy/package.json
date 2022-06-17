@@ -17,7 +17,7 @@
     "expo-camera": "^8.0.0",
     "expo-gl": "^8.0.0",
     "expo-gl-cpp": "^8.0.0",
-    "jpeg-js": "^0.4.0",
+    "jpeg-js": "^0.4.4",
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-camera": "git+https://git@github.com/react-native-community/react-native-camera.git",
